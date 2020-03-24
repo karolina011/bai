@@ -20,14 +20,11 @@
 		and psychedelic music.</p>
 
 		<script>
-			// document.getElementsByTagName("h1")[0].onclick = displayDate;
-			//
-			// function displayDate() {
-			// 	var newElement  = document.createElement('h1');
-			// 	newElement.innerText = document.getElementsByTagName("h1")[0].innerText;
-			// 	// document.getElementsByTagName("h1")[0].innerText;
-			// 	document.getElementsByTagName("h1")[0].append(newElement);
-			// }
+			document.getElementsByTagName("h1")[0].onclick = addString;
+
+			function addString() {
+				document.getElementsByTagName("h1")[0].innerText += ' (Part 2)';
+			}
 
 
 			document.getElementsByTagName("h3")[0].onclick = displayDescription;
