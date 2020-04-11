@@ -4,6 +4,28 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+
+    <div id="app">
+        <table>
+            <thead>
+            <tr>
+                <td>Title</td>
+                <td>Year</td>
+                <td>Director</td>
+                <td>Budget</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="film in films">
+                <td>{{film.title}}</td>
+                <td>{{film.year}}</td>
+                <td>{{film.director}}</td>
+                <td>{{film.budget.toLocaleString()}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
   <script>
     var app = new Vue({
       el: '#app',
@@ -35,8 +57,23 @@
           }
         ] 
         }
-      }
+
     });
   </script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        thead {
+            font-weight: bold;
+        }
+    </style>
 </body>
 </html>
