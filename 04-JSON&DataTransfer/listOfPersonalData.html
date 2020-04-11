@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>People</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<h1>People List</h1>
+<input type="button" value="Load People List" onclick="load()">
+<ol id="peopleList"></ol>
+
+<script>
+    function load() {
+        var method = 'GET';
+        var URL = 'https://raw.githubusercontent.com/karolina011/bai/master/04-JSON%26DataTransfer/people.json';
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () { display(this); };
+        xhr.open(method, URL);
+        xhr.send();
+    }
+    function display(r) {
+        if (r.readyState == 4 && r.status == 200) {
+
+            var response = JSON.parse(r.responseText);
+            var list = document.getElementById('peopleList');
+
+            response.forEach(person => {
+
+                var personalData = `${person.name} ${person.surname.toUpperCase()}, ${person.country}`;
+                var item = document.createElement("li");
+
+                item.appendChild(document.createTextNode(personalData));
+                list.appendChild(item);
+            });
+        }
+    };
+</script>
+
+</body>
+
+</html>

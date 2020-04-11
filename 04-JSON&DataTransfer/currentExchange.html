@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Currency Exchange</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<h1>Current Exchange Rates</h1>
+<div id="currencies"></div>
+
+<script>
+    function getCurrentExchange(currency) {
+        var method = 'GET';
+        var URL = `http://api.nbp.pl/api/exchangerates/rates/A/${currency}`;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () { display(this); };
+        xhr.open(method, URL);
+        xhr.send();
+    }
+    function display(r) {
+        if (r.readyState == 4 && r.status == 200) {
+            var response = JSON.parse(r.responseText);
+            var newElement = document.createElement("p");
+
+            newElement.innerText = `${response.code} - ${response.rates[0].mid} PLN`;
+            document.getElementById('currencies').appendChild(newElement);
+        }
+    };
+    getCurrentExchange('EUR');
+    getCurrentExchange('USD');
+    getCurrentExchange('GBP');
+</script>
+
+</body>
+
+</html>

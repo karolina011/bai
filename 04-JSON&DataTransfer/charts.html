@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Charst</title>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+          integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+</head>
+
+<body>
+
+<div style="text-align: -webkit-center;">
+    <h1>Charts</h1>
+    <p>Gold price</p>
+    <canvas id="goldPricesChart" width="400" height="400"></canvas>
+</div>
+
+<script>
+
+    function createChart(labels, data) {
+        new Chart(document.getElementById("goldPricesChart"),
+            {
+                "type": "line",
+                "data": {
+                    "labels": labels,
+                    "datasets": [{ "label": "Price", "data": data, "fill": false, "borderColor": "rgb(65, 122, 122)", "lineTension": 0.1, "pointBackgroundColor": "rgb(65, 222, 222)" }]
+                },
+                "options": {
+                    responsive: false
+                }
+            });
+    }
+
+    $(document).ready(function () {
+        $.ajax({
+            dataType: 'json',
+            url: 'http://api.nbp.pl/api/cenyzlota/last/10/?format=json', success: function (result) {
+
+                var labels = [];
+                var data = [];
+
+                $(result).each(function (key, value) {
+                    labels.push(value.data);
+                    data.push(value.cena);
+                });
+
+                createChart(labels, data);
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>
