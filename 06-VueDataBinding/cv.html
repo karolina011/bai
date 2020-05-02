@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <label for="name">Imię: </label>
+    <input id="name" type="text" v-model="name"><br><br>
+
+    <label for="surname">Nazwisko: </label>
+    <input id="surname" type="text" v-model="surname"><br><br>
+
+    <label for="age">Wiek: </label>
+    <input id="age" type="number" v-model.number="age"><br><br>
+
+    <p>Płeć:</p>
+        <label for="woman">Kobieta: <input type="radio" id="woman" value="woman" v-model="gender"></label><br>
+        <label for="man">Mężczyzna: <input type="radio" id="man" value="man" v-model="gender"></label>
+    </label><br><br>
+
+    <label for="education">Wykształcenie:
+        <select id="education" v-model="education">
+            <option>Brak</option>
+            <option>Podstawowe</option>
+            <option>Średnie</option>
+            <option>Wyższe</option>
+        </select>
+    </label><br>
+
+    <p>Umiejętności: </p>
+    <label for="computer">Obsługa komputera: </label>
+    <input id="computer" value="computer" type="checkbox" v-model="skills"><br><br>
+
+    <label for="drivingLicence">Prawo Jazdy: </label>
+    <input id="drivingLicence" value="drivingLicence" type="checkbox" v-model="skills"><br><br>
+
+    <label for="creativity">Kreatywność: </label>
+    <input id="creativity" value="creativity" type="checkbox" v-model="skills"><br><br>
+
+    <label for="teamWorker">Praca w zespole: </label>
+    <input id="teamWorker" value="teamWorker" type="checkbox" v-model="skills"><br><br>
+
+    <button v-on:click="save">Save</button>
+    <button v-on:click="read">Read</button>
+
+</div>
+
+<script>
+    const app = new Vue({
+       el: '#app',
+       data: {
+           name: '',
+           surname: '',
+           age: null,
+           gender: '',
+           education: '',
+           skills: [],
+       },
+        methods: {
+           save: function () {
+               const {name, surname, age, gender, education, skills} = this;
+               localStorage.cv = JSON.stringify({name, surname, age, gender, education, skills})
+           },
+           read: function () {
+               if (localStorage.getItem('cv'))
+               {
+                   const cv = JSON.parse(localStorage.cv);
+                   this.name = cv.name;
+                   this.surname = cv.surname;
+                   this.age = cv.age;
+                   this.gender = cv.gender;
+                   this.education = cv.education;
+                   this.skills = cv.skills;
+               }
+               this.print();
+           },
+            print: function () {
+                console.log('Imię: ' + this.name);
+                console.log('Nazwisko: ' + this.surname);
+                console.log('Wiek: ' + this.age);
+                console.log('Płeć: ' + this.gender);
+                console.log('Wykształcenie: ' + this.education);
+                console.log('Umiejętności: ' + this.skills);
+            }
+
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counter</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="addClick">The number of clicks: {{ counter }}</button>
+</div>
+
+<script>
+    const app = new Vue({
+       el: '#app',
+       data: {
+           counter: 0,
+       },
+       methods: {
+         addClick () {
+             this.counter += 1;
+         }
+       }
+    });
+</script>
+
+</body>
+</html>
